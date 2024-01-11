@@ -44,7 +44,7 @@
         }
         function updateActiveIndex() {
           let activeIndex = carouselItems.findIndex((item) =>
-            item.className.includes("test1")
+            item.className.includes("test3")
           );
           indexElements.forEach((indexElement, index) => {
             if (index === activeIndex) {
@@ -56,8 +56,8 @@
           });
         }
 
-        rightArrow.addEventListener("click", () => {
-          console.log("Right arow clicked");
+        function handleRightArrowClick() {
+          console.log("Right arrow clicked");
           carouselItems.forEach((item, index) => {
             let currentClass = item.className.match(/test(\d)/);
             if (currentClass) {
@@ -70,10 +70,10 @@
           });
           pauseAndSeekVideos();
           updateActiveIndex();
-        });
+        }
 
-        leftArrow.addEventListener("click", () => {
-          console.log("Left arow clicked");
+        function handleLeftArrowClick() {
+          console.log("Left arrow clicked");
           carouselItems.forEach((item, index) => {
             let currentClass = item.className.match(/test(\d)/);
             if (currentClass) {
@@ -86,7 +86,10 @@
           });
           pauseAndSeekVideos();
           updateActiveIndex();
-        });
+        }
+
+        rightArrow.addEventListener("click", handleRightArrowClick);
+        leftArrow.addEventListener("click", handleLeftArrowClick);
 
         function openMobileMenu() {
           const mobileMenu = document.querySelector(".mobileMenu");
@@ -153,10 +156,40 @@
             }
           });
         });
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        const carousel = document.querySelector(".carouseleArr"); // replace '.carousel' with your carousel's selector
+
+        function handleSwipe() {
+          if (touchendX < touchstartX) {
+            // moved left
+            console.log("Swiped left");
+            handleRightArrowClick();
+          }
+          if (touchendX > touchstartX) {
+            // moved right
+            console.log("Swiped right");
+            handleLeftArrowClick();
+          }
+        }
+
+        carousel.addEventListener("touchstart", (event) => {
+          touchstartX = event.changedTouches[0].screenX;
+        });
+
+        carousel.addEventListener("touchend", (event) => {
+          touchendX = event.changedTouches[0].screenX;
+          handleSwipe();
+        });
       });
     </script>
     <style>
       .mobileMenu {
+        display: none;
+      }
+
+      .mobile{
         display: none;
       }
 
@@ -215,7 +248,7 @@
         font-style: normal;
         font-weight: 700;
         line-height: 120.9%;
-        margin: 30px;
+        margin: 30px 0px 0px 0px;
       }
 
       .navBar {
@@ -308,7 +341,7 @@
         color: #fff;
         font-family: Inter;
         font-size: 15px;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
@@ -360,7 +393,7 @@
         width: 100%;
         min-height: 90dvh;
         padding-top: 280px;
-        gap: 30px;
+        gap: 35px;
 
         & h1 {
           width: 910px;
@@ -374,20 +407,25 @@
           max-width: 90vw;
           font-weight: 400;
           font-size: 18px;
+          margin: 0;
+        }
+
+        & .orderButton{
+          margin: 0;
         }
       }
 
       .subtitle {
-        width: 700px;
+        max-width: 700px;
         text-align: center;
         margin: 0;
       }
 
       .subdescript {
-        width: 910px;
+        max-width: 910px;
         text-align: center;
         font-size: 18px;
-        margin: 20px;
+        margin: 30px;
       }
 
       .loneSubtitle {
@@ -460,8 +498,8 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        gap: 25px;
         width: 340px;
-        height: 115px;
 
         & h2 {
           font-weight: 500;
@@ -494,10 +532,11 @@
       .howitworkArr {
         display: flex;
         justify-content: center;
-        gap: 90px;
+        gap: 60px;
         align-items: center;
         width: 100%;
-        padding: 10px 50px;
+        padding: 0px 50px;
+        margin-top: -50px;
         height: 400px;
       }
 
@@ -505,7 +544,7 @@
         display: flex;
         flex-direction: column;
         padding: 10px 15px;
-        width: 337px;
+        width: 380px;
         height: 241px;
         gap: 30px;
         position: relative;
@@ -596,6 +635,7 @@
         padding: 10px 50px;
         position: relative;
         top: -100px;
+        margin-bottom: -30px;
       }
 
       .referalItem {
@@ -605,7 +645,7 @@
         align-items: flex-start;
         padding: 10px 15px;
         height: 250px;
-        width: 340px;
+        width: 421px;
         gap: 30px;
         position: relative;
 
@@ -674,7 +714,7 @@
         align-items: center;
         width: 100%;
         padding: 10px 50px;
-        height: 800px;
+        height: 725px;
       }
 
       .carouseleItem {
@@ -755,14 +795,20 @@
       }
 
       .faq-section {
+        display: flex;
+        flex-direction: column;
         width: 75vw;
+        gap: 20px;
+      }
+
+      .loneSubtitle{
+        margin-bottom: 50px;
       }
 
       .faq-item {
         width: 100%;
-        margin-bottom: 20px;
         height: auto;
-        transition: height 0.5;
+        transition: all 0.5 ease;
         border-radius: 24px;
         background: linear-gradient(
           180deg,
@@ -806,6 +852,7 @@
         align-items: center;
         font-family: Inter;
         margin-bottom: 30px;
+        margin-top: 30px;
         width: 90%;
 
         & img {
@@ -815,9 +862,13 @@
 
       .footerCont {
         display: flex;
-        width: max-content;
+        width: 75vw;
         justify-content: space-around;
         flex-grow: 2;
+
+        & .navLinks{
+          margin: 0;
+        }
       }
 
       .footerEnd {
@@ -842,6 +893,10 @@
       }
 
       @media (max-width: 1300px) {
+        .Desk {
+          display: none;
+        }
+
         .mobileMenu {
           flex-direction: column;
           position: absolute;
@@ -915,6 +970,7 @@
           display: flex;
           width: 269px;
           height: 58px;
+          font-size: 18px;
           padding: 14px 46px 15px 46px;
           justify-content: center;
           align-items: center;
@@ -935,6 +991,7 @@
 
         .navBar {
           width: 92vw;
+          height: 52px;
         }
 
         .logo {
@@ -964,8 +1021,12 @@
 
         .mainContentTop {
           gap: 15px;
-          padding-top: 120px;
+          padding-top: 128px;
           height: 100dvh;
+
+          & .orderButton {
+            margin: 0;
+          }
 
           & p {
             max-width: 99vw;
@@ -1020,9 +1081,7 @@
           display: none;
         }
 
-        .benefits,
-        .referals,
-        .howitworks {
+        .benefits {
           max-width: 99vw;
         }
 
@@ -1050,7 +1109,7 @@
           font-style: normal;
           font-weight: 400;
           line-height: 132%;
-          padding: 0px 19px;
+          padding: 0px 10px;
         }
 
         .benefitImg {
@@ -1064,29 +1123,10 @@
           height: max-content;
         }
 
-        .howitworkArr {
-          flex-direction: column;
-          gap: 30px;
-          padding: 0;
-          width: 90vw;
-          height: max-content;
-        }
-
-        .howItem {
-          height: max-content;
-
-          & h2 {
-            font-size: 19px;
-          }
-
-          & p {
-            font-size: 16px;
-          }
-        }
-
         .subtitle {
           text-align: center;
-          font-size: 26px;
+          font-size: 24px;
+          max-width: 100%;
         }
 
         .subdescript {
@@ -1095,40 +1135,123 @@
           font-size: 16px;
         }
 
-        .referalsBanner {
-          width: 100vw;
-          height: auto;
-          object-fit: cover;
-          max-width: 100vw;
-          content: url("./images/mobileReferals.svg");
-        }
-
-        .referalsArr {
+        .howitworksMob {
+          display: flex;
           flex-direction: column;
-          height: max-content;
-          top: 0;
-          gap: 50px;
+          align-items: center;
         }
 
-        .referalItem {
-          height: max-content;
-          width: 80vw;
+        .mobhowitworksCont {
+          display: flex;
+          width: 100vw;
+        }
 
-          & h2 {
-            font-size: 19px;
+        .mobhowitworksItems {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 30px;
+          width: 100%;
+        }
+
+        .mobhowItem, .mobilereferalsItem {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 15px;
+
+          & img {
+            width: 34px;
+            height: 34px;
           }
 
           & p {
+            margin: 0;
             font-size: 16px;
+            max-width: 90%;
+          }
+
+          & h2 {
+            margin: 0;
+            font-size: 18px;
           }
         }
 
-        .referal2 {
-          top: 0;
+        .referalsMob {
+          border-radius: 24px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) -30.29%, rgba(255, 255, 255, 0.06) 144.92%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 358px;
+          max-width: 90vw;
         }
 
-        .testimonials {
+        .mobilereferalsImg{
+          max-width: 100%;
+        }
+
+        .mobilereferalsCont{
+          display: flex;
+          width: 100%;
+        }
+
+        .mobilereferalsitems{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          flex-grow: 1;
+        }
+
+        .mobhowItem, .mobilereferalsItem {
+          & h2{
+            display: flex;
+            align-items: center;
+            margin-left: -34px;
+
+            & img{
+              position: relative;
+              bottom: -3px;
+              left: -5px;
+            }
+        }
+      }
+
+        .carousele,
+        .carouseleArr {
+          width: 100vw;
+          overflow-x: hidden;
+        }
+
+        .carouseleArow {
           display: none;
+        }
+        .carouseleArr {
+          width: 100vw;
+        }
+
+        .test3 {
+          scale: 0.7;
+          left: auto;
+          transform: none;
+        }
+
+        .test1,
+        .test5 {
+          display: none;
+        }
+
+        .test2,
+        .test4 {
+          scale: 0.6;
+        }
+
+        .test2 {
+          left: calc(50% - 120px);
+        }
+
+        .test4 {
+          left: calc(50% - 24px);
         }
 
         .faq-question {
@@ -1172,7 +1295,12 @@
           flex-wrap: wrap;
           justify-content: space-evenly;
           width: 70vw;
-          height: max-content;
+          height: autow;
+          gap: 10px;
+        }
+
+        .footerLogo {
+          margin: 0;
         }
       }
 
@@ -1199,15 +1327,15 @@
       </div>
       <div class="mobileMenuCont">
         <ul>
-          <li><a href="#home">Home</a></li>
           <li><a href="#benefits">Benefits</a></li>
           <li><a href="#howitworks">How it works</a></li>
           <li><a href="#referals">Referal System</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="">Service</a></li>
         </ul>
         <div class="signupWrap">
-          <button class="mobileMenuButton">My Account</button>
+          <button class="mobileMenuButton">Sign In</button>
         </div>
       </div>
     </div>
@@ -1215,16 +1343,16 @@
       <img src="./images/logo.svg" alt="logo" class="logo navBarLogo" />
       <div class="navLinks">
         <ul>
-          <li><a href="#home">Home</a></li>
           <li><a href="#benefits">Benefits</a></li>
           <li><a href="#howitworks">How it works</a></li>
           <li><a href="#referals">Referal System</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="">Service</a></li>
         </ul>
       </div>
       <div class="signupWrap">
-        <button class="signUpButton">My Account</button>
+        <button class="signUpButton">Sign In</button>
       </div>
       <img src="./images/burgerMenu.svg" alt="" class="burgerMenu" />
     </div>
@@ -1238,7 +1366,7 @@
               class="background"
             />
           </div>
-          <h1 class="subtitle">
+          <h1 class="homeTitle">
             Own the Online World, Watch Your Social Media Grow
           </h1>
 
@@ -5979,8 +6107,7 @@
             <div class="benefitText">
               <h2>Lead With Speed</h2>
               <p>
-                Fast-track your social media expansion with our speedy
-                solutions.
+                Fast-track your social media expansion with our speedy solutions.
               </p>
             </div>
           </div>
@@ -6002,7 +6129,7 @@
         </a>
       </div>
       <div class="gap"></div>
-      <div class="howitworks" id="howitworks">
+      <div class="howitworks Desk" id="howitworks">
         <h1 class="subtitle">How it works?</h1>
         <p class="subdescript">
           We have different services to suit your social media needs. FameFlame
@@ -6063,8 +6190,52 @@
           <button class="orderButton">Order now</button>
         </a>
       </div>
+      <div class="mobile howitworksMob">
+        <h1 class="subtitle">How it Works?</h1>
+        <p class="subdescript">
+          We have different services to suit your social media needs. FameFlame
+          operates across all major social platforms. Identify the platforms you
+          want boosted and order a service that aligns with your goals.
+        </p>
+        <div class="mobhowitworksCont">
+          <img src="./images/Line.svg" alt="" />
+          <div class="mobhowitworksItems">
+            <div class="mobhowit1 mobhowItem">
+              <img src="./images/Done_ring_round.svg" alt="Completed" />
+              <h2>
+                <img src="./images/Point.svg" alt="Completed" />
+                Select the service you need</h2>
+              <p>
+                Choose from a range of tailored services to match your social
+                media goals and audience growth targets.
+              </p>
+            </div>
+            <div class="mobhowit2 mobhowItem">
+              <img src="./images/Wallet.svg" alt="Completed" />
+              <h2>
+                <img src="./images/Point.svg" alt="Completed" />
+                Choose payment method</h2>
+              <p>
+                Pick from various secure payment options, including debit and
+                credit cards or cryptocurrency.
+              </p>
+            </div>
+            <div class="mobhowit3 mobhowItem">
+              <img src="./images/happy.svg" alt="Completed" />
+              <h2>
+              <img src="./images/Point.svg" alt="Completed" />
+              Watch your social media grow</h2>
+              <p>
+                Relax and observe the transformation as your online engagement
+                skyrockets.
+              </p>
+            </div>
+          </div>
+        </div>
+        <button class="orderButton">Order now</button>
+      </div>
       <div class="gap"></div>
-      <div class="referals" id="referals">
+      <div class="referals Desk" id="referals">
         <h1 class="subtitle">Invite Friends & Earn Money!</h1>
         <p class="subdescript">
           Gain profits by inviting others to join FameFlame! When they purchase,
@@ -6099,7 +6270,7 @@
               <img src="./images/coinsIcon.svg" alt="" />
               <img src="./images/2.svg" alt="" />
             </div>
-            <h2>Earn money</h2>
+            <h2>Gain profits</h2>
             <p>Earn money by getting 10% of their payments.</p>
           </div>
           <div class="referal3 referalItem">
@@ -6112,13 +6283,51 @@
               <img src="./images/groupIcon.svg" alt="" />
               <img src="./images/3.svg" alt="" />
             </div>
-            <h2>Progress</h2>
+            <h2>Watch Progress</h2>
             <p>More referrals = More money!</p>
           </div>
         </div>
         <a href="https://fameflame.io/services" class="orderLink">
           <button class="orderButton">Order now</button>
         </a>
+      </div>
+      <div class="mobile referalsMob">
+        <img src="./images/mobileReferals.svg" alt="Referal system" class="mobilereferalsImg"/>
+        <h1 class="subtitle">Invite Friends & Earn Money!</h1>
+        <p class="subdescript">
+          Gain profits by inviting others to join FameFlame! When they purchase,
+          you earn 10% of their payment.
+        </p>
+        <div class="mobilereferalsCont">
+          <img src="./images/Line.svg" alt="" />
+          <div class="mobilereferalsitems">
+            <div class="mobilereferal1 mobilereferalsItem">
+              <img src="./images/contactIcon.svg" alt="" />
+              <h2>
+                <img src="./images/Point.svg" alt="">
+                Find Referrals</h2>
+                <p>
+                  Invite friends, family, and acquaintances to join FameFlame.
+                </p>
+              </div>
+              <div class="mobilereferal1 mobilereferalsItem">
+                <img src="./images/coinsIcon.svg" alt="" />
+                <h2>
+                  <img src="./images/Point.svg" alt="" />
+                  Earn money
+                </h2>
+                <p>Earn money by getting 10% of their payments.</p>
+              </div>
+              <div class="mobilereferal1 mobilereferalsItem">
+                <img src="./images/groupIcon.svg" alt="" />
+                <h2>
+                  <img src="./images/Point.svg" alt="" />
+                  Watch Progress</h2>
+                <p>More referrals = More money!</p>
+            </div>
+          </div>
+        </div>
+        <button class="orderButton">Order now</button>
       </div>
       <div class="gap"></div>
       <div class="testimonials" id="testimonials">
@@ -6197,13 +6406,13 @@
         </div>
         <div class="carouseleIndex">
           <div class="imgWrapCarousele">
+            <img src="./images/inactiveTest.svg" alt="" />
+          </div>
+          <div class="imgWrapCarousele">
+            <img src="./images/inactiveTest.svg" alt="" />
+          </div>
+          <div class="imgWrapCarousele">
             <img src="./images/activeTest.svg" alt="" />
-          </div>
-          <div class="imgWrapCarousele">
-            <img src="./images/inactiveTest.svg" alt="" />
-          </div>
-          <div class="imgWrapCarousele">
-            <img src="./images/inactiveTest.svg" alt="" />
           </div>
           <div class="imgWrapCarousele">
             <img src="./images/inactiveTest.svg" alt="" />
