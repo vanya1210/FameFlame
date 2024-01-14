@@ -159,7 +159,7 @@
         let touchstartX = 0;
         let touchendX = 0;
 
-        const carousel = document.querySelector(".carouseleArr"); // replace '.carousel' with your carousel's selector
+        const carousel = document.querySelector(".swipeHolder"); // replace '.carousel' with your carousel's selector
 
         function handleSwipe() {
           if (touchendX < touchstartX) {
@@ -189,7 +189,16 @@
         display: none;
       }
 
-      .mobile{
+      .swipeHolder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        max-width: 100vw;
+        width: 100%;
+      }	
+
+      .mobile {
         display: none;
       }
 
@@ -249,6 +258,16 @@
         font-weight: 700;
         line-height: 120.9%;
         margin: 30px 0px 0px 0px;
+        cursor: pointer;
+      }
+
+      .orderButton:hover {
+        background: linear-gradient(
+          188deg,
+          #141492 -6.47%,
+          #2224a7 68.39%,
+          #063c63 127%
+        );
       }
 
       .navBar {
@@ -317,9 +336,26 @@
           rgba(255, 51, 122, 1),
           rgba(64, 175, 253, 1)
         );
-
+        transition: all 1s ease;
         padding: 2px;
         height: min-content;
+        background-size: 200% 200%;
+      }
+
+      .signupWrap:hover {
+        background-position: -100% 0;
+        transition: all 1s ease;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Define the animation */
+      @keyframes spin {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: -100% 0%;
+        }
       }
 
       .navLinks ul {
@@ -345,6 +381,10 @@
         line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
+      }
+
+      .navLinks ul li a:hover {
+        color: #bebebe;
       }
 
       .burgerMenu {
@@ -383,6 +423,16 @@
       }
 
       .background {
+        animation: scaleImage 10s linear infinite alternate;
+      }
+
+      @keyframes scaleImage {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0.9);
+        }
       }
 
       .mainContentTop {
@@ -410,7 +460,7 @@
           margin: 0;
         }
 
-        & .orderButton{
+        & .orderButton {
           margin: 0;
         }
       }
@@ -443,7 +493,7 @@
           margin: 0;
           width: max-content;
 
-          & img{
+          & img {
             position: relative;
             bottom: 3px;
           }
@@ -693,12 +743,14 @@
         align-items: center;
         width: 100%;
         height: max-content;
+        overflow-x: hidden;
       }
 
       .carousele {
         display: flex;
         align-items: center;
         width: 80%;
+        overflow-x: hidden;
       }
 
       .carouseleArow {
@@ -718,8 +770,8 @@
         gap: 30px;
         align-items: center;
         width: 100%;
-        padding: 10px 50px;
         height: 725px;
+        overflow-x: hidden;
       }
 
       .carouseleItem {
@@ -728,8 +780,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: #d4d4d4;
-        padding: 10px 15px;
         width: 370px;
         height: 670px;
         transition: all 0.5s ease;
@@ -789,6 +839,10 @@
         height: 12px;
       }
 
+      .swipelogo {
+        display: none;
+      }
+
       .faq {
         display: flex;
         flex-direction: column;
@@ -806,7 +860,7 @@
         gap: 20px;
       }
 
-      .loneSubtitle{
+      .loneSubtitle {
         margin-bottom: 50px;
       }
 
@@ -829,7 +883,7 @@
         border-radius: 0;
         background-color: transparent;
         color: white;
-        font-size: 28px;
+        font-size: 24px;
         box-shadow: none;
         border: none;
         display: flex;
@@ -849,6 +903,7 @@
         opacity: 0;
         transition: opacity 0.5s ease;
         padding: 0px 24px 20px 24px;
+        font-size: 18px;
       }
 
       footer {
@@ -871,7 +926,7 @@
         justify-content: space-around;
         flex-grow: 2;
 
-        & .navLinks{
+        & .navLinks {
           margin: 0;
         }
       }
@@ -898,6 +953,14 @@
       }
 
       @media (max-width: 1300px) {
+        .swipelogo {
+          display: block;
+          width: 34px;
+          height: auto;
+          filter: invert(1);
+          margin-bottom: 10px;
+        }
+
         .Desk {
           display: none;
         }
@@ -1062,6 +1125,15 @@
           transform: translateX(-50%);
         }
 
+        @keyframes scaleImage {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(1.2);
+          }
+        }
+
         .burgerMenu {
           display: block;
           height: 22px;
@@ -1159,7 +1231,8 @@
           width: 100%;
         }
 
-        .mobhowItem, .mobilereferalsItem {
+        .mobhowItem,
+        .mobilereferalsItem {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -1184,25 +1257,29 @@
 
         .referalsMob {
           border-radius: 24px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) -30.29%, rgba(255, 255, 255, 0.06) 144.92%);
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.07) -30.29%,
+            rgba(255, 255, 255, 0.06) 144.92%
+          );
           display: flex;
           flex-direction: column;
           align-items: center;
           width: 358px;
           max-width: 90vw;
-          padding-bottom: 30px ;
+          padding-bottom: 30px;
         }
 
-        .mobilereferalsImg{
+        .mobilereferalsImg {
           max-width: 100%;
         }
 
-        .mobilereferalsCont{
+        .mobilereferalsCont {
           display: flex;
           width: 100%;
         }
 
-        .mobilereferalsitems{
+        .mobilereferalsitems {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -1210,19 +1287,20 @@
           flex-grow: 1;
         }
 
-        .mobhowItem, .mobilereferalsItem {
-          & h2{
+        .mobhowItem,
+        .mobilereferalsItem {
+          & h2 {
             display: flex;
             align-items: center;
             margin-left: -34px;
 
-            & img{
+            & img {
               position: relative;
               bottom: -3px;
               left: -5px;
             }
+          }
         }
-      }
 
         .carousele,
         .carouseleArr {
@@ -1235,30 +1313,42 @@
         }
         .carouseleArr {
           width: 100vw;
+          height: 560px;
         }
 
         .test3 {
           scale: 0.7;
-          left: auto;
-          transform: none;
+          left: calc(50% - 56px);
+          transform: translate(-50%);
         }
-
-        .test1,
+        
+        .test1{
+          left: calc(50% - 160px);
+          transform: translate(-50%);
+          scale: 0.5;
+          z-index: -3;
+          opacity: 0;
+        }
         .test5 {
-          display: none;
+          transform: translate(-50%);
+          left: calc(50% - 20px);
+          scale: 0.5;
+          z-index: -3;
+          opacity: 0;
         }
 
         .test2,
         .test4 {
           scale: 0.6;
+          z-index: -2;
         }
 
         .test2 {
-          left: calc(50% - 120px);
+          left: calc(50% - 105px);
         }
 
         .test4 {
-          left: calc(50% - 24px);
+          left: calc(50% - 40px);
         }
 
         .faq-question {
@@ -1330,7 +1420,11 @@
   <body>
     <div class="mobileMenu">
       <div class="mobileMenuTop">
-        <img src="./images/logo.svg" alt="logo" class="logo navBarLogo" />
+        <img
+          src="https://storage.cloud.google.com/fameflame/logo.svg"
+          alt="logo"
+          class="logo navBarLogo"
+        />
         <img src="./images/cross.svg" alt="close menu" class="closeCross" />
       </div>
       <div class="mobileMenuCont">
@@ -1348,7 +1442,11 @@
       </div>
     </div>
     <div class="navBar">
-      <img src="./images/logo.svg" alt="logo" class="logo navBarLogo" />
+      <img
+        src="https://storage.cloud.google.com/fameflame/logo.svg"
+        alt="logo"
+        class="logo navBarLogo"
+      />
       <div class="navLinks">
         <ul>
           <li><a href="#benefits">Benefits</a></li>
@@ -1356,13 +1454,17 @@
           <li><a href="#referals">Referal System</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="">Service</a></li>
+          <li><a href="">Services</a></li>
         </ul>
       </div>
       <div class="signupWrap">
         <button class="signUpButton">Sign In</button>
       </div>
-      <img src="./images/burgerMenu.svg" alt="" class="burgerMenu" />
+      <img
+        src="./images/burgerMenu.svg"
+        alt=""
+        class="burgerMenu"
+      />
     </div>
     <main>
       <div class="mainContent" id="home">
@@ -6115,7 +6217,8 @@
             <div class="benefitText">
               <h2>Lead With Speed</h2>
               <p>
-                Fast-track your social media expansion with our speedy solutions.
+                Fast-track your social media expansion with our speedy
+                solutions.
               </p>
             </div>
           </div>
@@ -6212,7 +6315,8 @@
               <img src="./images/Done_ring_round.svg" alt="Completed" />
               <h2>
                 <img src="./images/Point.svg" alt="Completed" />
-                Select the service you need</h2>
+                Select the service you need
+              </h2>
               <p>
                 Choose from a range of tailored services to match your social
                 media goals and audience growth targets.
@@ -6222,7 +6326,8 @@
               <img src="./images/Wallet.svg" alt="Completed" />
               <h2>
                 <img src="./images/Point.svg" alt="Completed" />
-                Choose payment method</h2>
+                Choose payment method
+              </h2>
               <p>
                 Pick from various secure payment options, including debit and
                 credit cards or cryptocurrency.
@@ -6231,8 +6336,9 @@
             <div class="mobhowit3 mobhowItem">
               <img src="./images/happy.svg" alt="Completed" />
               <h2>
-              <img src="./images/Point.svg" alt="Completed" />
-              Watch your social media grow</h2>
+                <img src="./images/Point.svg" alt="Completed" />
+                Watch your social media grow
+              </h2>
               <p>
                 Relax and observe the transformation as your online engagement
                 skyrockets.
@@ -6300,7 +6406,11 @@
         </a>
       </div>
       <div class="mobile referalsMob">
-        <img src="./images/mobileReferals.svg" alt="Referal system" class="mobilereferalsImg"/>
+        <img
+          src="./images/mobileReferals.svg"
+          alt="Referal system"
+          class="mobilereferalsImg"
+        />
         <h1 class="subtitle">Invite Friends & Earn Money!</h1>
         <p class="subdescript">
           Gain profits by inviting others to join FameFlame! When they purchase,
@@ -6312,26 +6422,28 @@
             <div class="mobilereferal1 mobilereferalsItem">
               <img src="./images/contactIcon.svg" alt="" />
               <h2>
-                <img src="./images/Point.svg" alt="">
-                Find Referrals</h2>
-                <p>
-                  Invite friends, family, and acquaintances to join FameFlame.
-                </p>
-              </div>
-              <div class="mobilereferal1 mobilereferalsItem">
-                <img src="./images/coinsIcon.svg" alt="" />
-                <h2>
-                  <img src="./images/Point.svg" alt="" />
-                  Earn money
-                </h2>
-                <p>Earn money by getting 10% of their payments.</p>
-              </div>
-              <div class="mobilereferal1 mobilereferalsItem">
-                <img src="./images/groupIcon.svg" alt="" />
-                <h2>
-                  <img src="./images/Point.svg" alt="" />
-                  Watch Progress</h2>
-                <p>More referrals = More money!</p>
+                <img src="./images/Point.svg" alt="" />
+                Find Referrals
+              </h2>
+              <p>
+                Invite friends, family, and acquaintances to join FameFlame.
+              </p>
+            </div>
+            <div class="mobilereferal1 mobilereferalsItem">
+              <img src="./images/coinsIcon.svg" alt="" />
+              <h2>
+                <img src="./images/Point.svg" alt="" />
+                Earn money
+              </h2>
+              <p>Earn money by getting 10% of their payments.</p>
+            </div>
+            <div class="mobilereferal1 mobilereferalsItem">
+              <img src="./images/groupIcon.svg" alt="" />
+              <h2>
+                <img src="./images/Point.svg" alt="" />
+                Watch Progress
+              </h2>
+              <p>More referrals = More money!</p>
             </div>
           </div>
         </div>
@@ -6340,77 +6452,77 @@
       <div class="gap"></div>
       <div class="testimonials" id="testimonials">
         <h1 class="subtitle loneSubtitle">Testimonials</h1>
-        <div class="carousele">
-          <img
-            src="./images/arrow.svg"
-            alt="Arrow Left"
-            class="carouseleArow ArowLeft"
-          />
-          <div class="carouseleArr">
-            <div class="test1 carouseleItem">
-              <iframe
-                width="320"
-                height="560"
-                src="https://www.youtube.com/embed/rrYuJrycguo?enablejsapi=1"
-                title="Grow Your Instagram Followers, Likes, and Views Effortlessly! #socialmediatips #engagement"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
+        <div class="swipeHolder">
+          <div class="carousele">
+            <img
+              src="./images/arrow.svg"
+              alt="Arrow Left"
+              class="carouseleArow ArowLeft"
+            />
+            <div class="carouseleArr">
+              <div class="test1 carouseleItem">
+                <iframe
+                  width="315"
+                  height="560"
+                  src="https://www.youtube.com/embed/cA56kggkv9g?enablejsapi=1"
+                  title="How I Boosted My Social Media and Started Getting Brand Deals #influencermarketing #socialmedia"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="test2 carouseleItem">
+                <iframe
+                  width="315"
+                  height="560"
+                  src="https://www.youtube.com/embed/d220hYYIEIk?enablejsapi=1"
+                  title="Reviving My Social Media: How I Achieved Organic Growth and Real Engagement #influencer"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="test3 carouseleItem">
+                <iframe
+                  width="315"
+                  height="560"
+                  src="https://www.youtube.com/embed/zAKO8dYmhsI?enablejsapi=1"
+                  title="How I Skyrocketed My Social Media Engagement: An Influencer&#39;s Inside Story"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="test4 carouseleItem">
+                <iframe
+                  width="315"
+                  height="560"
+                  src="https://www.youtube.com/embed/fcjVvnC2qiw?enablejsapi=1"
+                  title="Business Breakthrough: How High Social Media Engagement Boosted My Profits #socialmediaengagement"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="test5 carouseleItem">
+                <iframe
+                  width="315"
+                  height="560"
+                  src="https://www.youtube.com/embed/vsNI7GHDctY?enablejsapi=1"
+                  title="My Instagram Growth Story: How I Enhanced My Engagement  #influencermarketing #socialmedia"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
-            <div class="test2 carouseleItem">
-              <iframe
-                width="320"
-                height="560"
-                src="https://www.youtube.com/embed/2opDv1lAJC0?enablejsapi=1"
-                title="How I Boosted My Social Media Influence Overnight with FameFlame #socialmediatips #rapidgrowth"
-                frameborder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
-            <div class="test3 carouseleItem">
-              <iframe
-                width="320"
-                height="560"
-                src="https://www.youtube.com/embed/jq6IOojxOtw?enablejsapi=1"
-                title="The Story of How to Boost Your Engagement on Instagram Overnight"
-                frameborder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; web-share"
-                allowfullscreen
-                showinfo="0"
-                controls="0"
-                autohide="1"
-              ></iframe>
-            </div>
-            <div class="test4 carouseleItem">
-              <iframe
-                width="320"
-                height="560"
-                src="https://www.youtube.com/embed/SRdSqeBIlBI?enablejsapi=1"
-                title="How to Skyrocket Your Social Media Engagement Instantly! #socialmediatips #smm"
-                frameborder="0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
-            <div class="test5 carouseleItem">
-              <iframe
-                width="320"
-                height="560"
-                src="https://www.youtube.com/embed/rrYuJrycguo?enablejsapi=1"
-                title="Grow Your Instagram Followers, Likes, and Views Effortlessly! #socialmediatips #engagement"
-                frameborder="0"
-                allow="accelerometer; autoplay; controls=0; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
+            <img
+              src="./images/arrow.svg"
+              alt="Arrow Right"
+              class="carouseleArow ArowRight"
+            />
           </div>
-          <img
-            src="./images/arrow.svg"
-            alt="Arrow Right"
-            class="carouseleArow ArowRight"
-          />
+          <img src="./images/swipe.svg" alt="swipe icon" class="swipelogo" />
         </div>
         <div class="carouseleIndex">
           <div class="imgWrapCarousele">
@@ -6535,18 +6647,22 @@
     <footer>
       <img src="./images/footerLine.svg" alt="line" class="footerLine" />
       <div class="footerCont">
-        <img src="./images/logo.svg" alt="logo" class="logo footerLogo" />
+        <img
+          src="https://storage.cloud.google.com/fameflame/logo.svg"
+          alt="logo"
+          class="logo footerLogo"
+        />
         <div class="navLinks">
           <ul>
-            <li><a href="#home">Home</a></li>
             <li><a href="#benefits">Benefits</a></li>
             <li><a href="#howitworks">How it works</a></li>
             <li><a href="#referals">Referal System</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="">Service</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="">Services</a></li>
           </ul>
           <div class="signupWrap">
-            <button class="signUpButton">My Account</button>
+            <button class="signUpButton">Sign In</button>
           </div>
         </div>
       </div>
