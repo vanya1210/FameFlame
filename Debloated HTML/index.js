@@ -83,6 +83,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   rightArrow.addEventListener("click", handleRightArrowClick);
   leftArrow.addEventListener("click", handleLeftArrowClick);
 
+  const testbutton = document.getElementById("testbutton");
+  
+  testbutton.addEventListener("click", pauseAndSeekVideos);
   function openMobileMenu() {
     const mobileMenu = document.querySelector(".mobileMenu");
     mobileMenu.style.display = "flex";

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script defer src="./index.js"></script>
+    <style>
+      .cont {
+        width: 260px;
+        height: 470px;
+      }
+      .lite-youtube-fallback {
+        aspect-ratio: 9 /16; /* matches YouTube player */
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1em;
+        padding: 1em;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      /* right-facing triangle "Play" icon */
+      .lite-youtube-fallback::before {
+        display: block;
+        content: "";
+        border: solid transparent;
+        border-width: 2em 0 2em 3em;
+        border-left-color: red;
+      }
+
+      .lite-youtube-fallback:hover::before {
+        border-left-color: #fff;
+      }
+
+      .lite-youtube-fallback:focus {
+        outline: 2px solid red;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <p>Hi!</p>
+    <iframe
+      loading="lazy"
+      width="315"
+      height="560"
+      src="https://www.youtube.com/embed/zAKO8dYmhsI&autoplay=1?enablejsapi=1"
+      srcdoc="<style>
+        * {
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        img,
+        span {
+          position: absolute;
+          left: calc(50%);
+          transform: translate(-50%, -50%);
+          top: 50%;
+          height: 100%;
+        }
+        span {
+          height: 560px;
+          width: 100%;
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          font: 48px/1.5 sans-serif;
+          color: white;
+          text-shadow: 0 0 0.5em black;
+        }
+        p {
+          height: min-content;
+          margin: auto;
+        }        
+    </style>
+    
+    <a href=https://www.youtube.com/embed/zAKO8dYmhsI?autoplay=1>
+      <img src=https://img.youtube.com/vi/zAKO8dYmhsI/hqdefault.jpg alt=''>
+      <span>
+        <p>
+          ▶
+        </p>
+      </span>
+    </a>"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      title=""
+    ></iframe>
+    <button id="testButton">test</button>
+  </body>
+</html>
