@@ -1006,6 +1006,10 @@ footer .signupWrap {
     display: none;
   }
 
+  .MobileSocialMedias{
+    display: block;
+  }
+
   .benefits {
     max-width: 99vw;
   }
